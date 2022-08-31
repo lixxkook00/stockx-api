@@ -8,6 +8,7 @@ module.exports = {
 
     getAll: (req, res) => {
         let sql = 'SELECT * from `product`'
+
         db.query(sql, (err, response) => {
             if (err) throw err
 
@@ -79,8 +80,6 @@ module.exports = {
     ,getAttributeDetail: (req, res) => {
         let sql = 'SELECT * FROM `product_attribute_price` WHERE productId = ' + req.body.productId
 
-        console.log("success getAttributeDetail with : ",sql)
-
         db.query(sql, (err, response) => {
             if (err) throw err
 
@@ -101,9 +100,10 @@ module.exports = {
     }
 
     ,createProduct: (req, res) => {
-        console.log(typeof JSON.parse(req.body.attributeList))
+
+        console.log(req.body.attributeList)
         
-        let sql = 'SELECT * from `product`'
+        let sql = 'INSERT INTO `product` (`productId`, `name`, `imgUrl`, `price`, `brand`, `ranking`, `type`, `sizeNum`, `sizeType`) VALUES (NULL, \"'+ req.body.name +'\", \"'+ req.body.imgUrl +'\", '+ req.body.price +', \"'+ req.body.brand +'\", '+ req.body.ranking +', \"'+ req.body.type +'\",\''+req.body.attributeList+'\',\''+req.body.attributeList+'\')'
 
         console.log("success getAttributeDetail with : ",sql)
 
@@ -113,13 +113,13 @@ module.exports = {
             if(response !== ""){
                 res.json({
                     "status":200,
-                    "msg":"Find products with attribute successfull",
+                    "msg":"Create products successfull",
                     "data":response
                 })
             }else{
                 res.json({
-                    "status":false,
-                    "msg":"Dont have this shit item",
+                    "status":false, 
+                    "msg":"Catch this shit error in there !!!",
                     "data":[]
                 })
             }
