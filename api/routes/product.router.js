@@ -1,5 +1,6 @@
 'use strict';
 const express = require('express');
+const { validationResult } = require('express-validator');
 
 const productController = require('../controllers/ProductController');
 const validation = require('../valiadations')
@@ -21,12 +22,15 @@ router.post('/create',
         const errors = await validationResult(req);
 
         if (!errors.isEmpty()) {
+            console.log(errors)
             return res.status(422).json({
+                status: 422,
                 msg: errors?.errors[0]?.msg,
+                position: errors?.errors[0]?.param,
             })
         }
         else{
-            productController.createProduct
+            productController.createProduct(req,res)
         }
     }  
 )
