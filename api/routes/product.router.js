@@ -17,14 +17,17 @@ router.post('/filter',productController.filter);
 router.post('/attribute/detail',productController.getAttributeDetail);
 
 router.post('/create', 
+
     validation.createProduct,
+
     async (req,res,next) => {
         const errors = await validationResult(req);
 
         if (!errors.isEmpty()) {
-            console.log(errors)
+            // console.log(errors)
+            
             return res.status(422).json({
-                status: 422,
+                status: false,
                 msg: errors?.errors[0]?.msg,
                 position: errors?.errors[0]?.param,
             })

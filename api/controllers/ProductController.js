@@ -110,7 +110,7 @@ exports.createProduct = (req, res) => {
                 ${req.body.ranking}, 
                 '${req.body.type}',
                 '${req.body.sizeAvailable}',
-                '${req.body.sizeAvailable}')
+                '${req.body.sizeType}')
         ` 
 
     db.query(sql, (err, response) => {
