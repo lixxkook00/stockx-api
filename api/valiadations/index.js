@@ -1,6 +1,6 @@
 const { check, body } = require('express-validator');
 
-// product
+// PRODUCT
 exports.createProduct = [
     check('name', 'Product name is requied').notEmpty(),
     check('name', 'Product name must be smaller 255 character long').isLength({ max:254 }),
@@ -19,4 +19,13 @@ exports.createProduct = [
     check('type', 'Name product is requied').notEmpty(),
 
     check('sizeAvailable', 'Name product is requied').notEmpty(),
+]
+
+// AUTH
+
+//  --- get infor user
+
+exports.getUserInfor = [
+    check('userId', 'User ID is requied').notEmpty(),
+    check('userId', 'Invalid user id').isInt({ min: 1 }),
 ]
