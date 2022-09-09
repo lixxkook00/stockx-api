@@ -4,7 +4,7 @@ const express = require('express');
 const { validationResult } = require('express-validator');
 
 const authController = require('../controllers/auth.controller')
-const validation = require('../valiadations')
+const validation = require('../valiadations/valiadation')
 
 const router = express.Router(); 
 
@@ -43,6 +43,13 @@ router.post('/register',
                 status: false,
                 msg: errors?.errors[0]?.msg,
                 position: errors?.errors[0]?.param,
+            })
+        }
+        else if(req.body.password !== req.body.rePassword){
+            return res.status(422).json({
+                status: false,
+                msg: "Password does not match",
+                position: "rePassword",
             })
         }
         else{

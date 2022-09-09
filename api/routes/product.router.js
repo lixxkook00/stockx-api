@@ -3,7 +3,7 @@ const express = require('express');
 const { validationResult } = require('express-validator');
 
 const productController = require('../controllers/ProductController');
-const validation = require('../valiadations')
+const validation = require('../valiadations/valiadation')
 
 const router = express.Router(); 
 

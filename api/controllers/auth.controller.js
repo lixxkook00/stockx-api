@@ -20,8 +20,13 @@ exports.Register = (req, res) => {
             ] , 
             (err, response) => 
         {
-            if (err) throw err
-
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: (err.code == 'ER_DUP_ENTRY' || err.errno == 1062) ? "Username already exists!" : "Unknown error"
+                });
+            }
+            
             if(response !== ""){
                 res.json({
                     "status":200,
