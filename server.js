@@ -16,12 +16,13 @@ app.use(express.json());
 
 // Router
 app.use('/product', productRouter);
+
 app.use('/auth', authRouter);
+
 
 app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
 })
-
 
 // listen on enviroment
 app.listen(port, () => console.log('port listen hereeeeeee', port))

@@ -8,8 +8,6 @@ const validation = require('../valiadations')
 
 const router = express.Router(); 
 
-router.post('/register',authController.Register);
-
 router.post('/get-user', 
 
     validation.getUserInfor,
@@ -32,4 +30,24 @@ router.post('/get-user',
     }  
 )
 
+router.post('/register', 
+
+    validation.register,
+
+    async (req,res) => {
+        const errors = await validationResult(req);
+
+        if (!errors.isEmpty()) {
+            
+            return res.status(422).json({
+                status: false,
+                msg: errors?.errors[0]?.msg,
+                position: errors?.errors[0]?.param,
+            })
+        }
+        else{
+            authController.Register(req,res)
+        }
+    }  
+)
 module.exports = router;

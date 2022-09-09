@@ -5,24 +5,38 @@ const mysql = require('mysql')
 const db = require('../db')
 
 exports.Register = (req, res) => {
-    let sql = 'SELECT * FROM `users` WHERE is = ' + 1
-    db.query(sql, (err, response) => {
-        if (err) throw err
+    console.log("validation success !!!")
 
-        if(response !== ""){
-            res.json({
-                "status":200,
-                "msg":"Find product successfull",
-                "data":response
-            })
-        }else{
-            res.json({
-                "status":false,
-                "msg":"Dont have this shit item",
-                "data":[]
-            })
+    let sql = ` INSERT INTO users ( username, full_name, password, email, phone) VALUES ( ? , ? , ? , ? , ? )`
+
+    db.query(
+            sql , 
+            [
+                req.body.userName,
+                req.body.fullName ,
+                req.body.password ,
+                req.body.email ,
+                req.body.phone ,
+            ] , 
+            (err, response) => 
+        {
+            if (err) throw err
+
+            if(response !== ""){
+                res.json({
+                    "status":200,
+                    "msg":"Register Success",
+                    // "data":response
+                })
+            }else{
+                res.json({
+                    "status":false,
+                    "msg":"Server error",
+                    "data":[]
+                })
+            }
         }
-    })
+    )
 }
 
 exports.GetUser = (req, res) => {
