@@ -28,6 +28,7 @@ exports.createProduct = [
 
 // AUTH
 
+
 //  --- get infor user
 exports.getUserInfor = [
     check('userId', 'User ID is requied').notEmpty(),
