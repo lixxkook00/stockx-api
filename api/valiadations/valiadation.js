@@ -28,6 +28,10 @@ exports.createProduct = [
     check('sizeAvailable', 'Name product is requied').notEmpty(),
 ]
 
+exports.getProductById = [
+    check('productId', 'Product ID is requied').notEmpty(),
+]
+
 // *** AUTH ***
 
 
