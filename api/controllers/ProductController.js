@@ -52,18 +52,38 @@ exports.filter = (req, res) => {
         +
         ` AND sizeType LIKE '%${req.body.sizeType !== undefined ? req.body.sizeType : ''}%'`
         +
-        ` AND price LIKE '%${req.body.price !== undefined ? req.body.price : ''}%'`
-    
+        ` AND price >= '${req.body.priceMin !== undefined ? req.body.priceMin : 0}'`
+        +
+        ` AND price <= '${req.body.priceMax !== undefined ? req.body.priceMax : 90000000}'`
+
     db.query(sql, (err, response) => {
         if (err) throw err
 
         if(response.length > 0){
-            res.json({
-                "status":200,
-                "msg":"Find product successfull",
-                "length":response.length,
-                "data":response
-            })
+            const finalList = [...response];
+
+            console.log("finalList",finalList[0].price);
+
+            // sort
+            if(req.body.sort === "low"){
+                finalList.sort(function(a, b){return a.price - b.price})
+
+                res.json({
+                    "status":200,
+                    "msg":"Find product successfull",
+                    "length":finalList.length,
+                    "data":finalList
+                })
+            }
+            else{
+                res.json({
+                    "status":200,
+                    "msg":"Find product successfull",
+                    "length":response.length,
+                    "data":response
+                })
+            }
+
         }else{
             res.json({
                 "status":false,

@@ -30,6 +30,7 @@ exports.createProduct = [
 
 exports.getProductById = [
     check('productId', 'Product ID is requied').notEmpty(),
+    check('productId', 'Product ID is integer number').isInt(),
 ]
 
 // *** AUTH ***
