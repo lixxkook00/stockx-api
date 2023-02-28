@@ -30,6 +30,30 @@ router.post('/get-user',
     }  
 )
 
+router.post('/get-user-by-wallet', 
+
+    validation.getUserInforByWallet,
+
+    async (req,res) => {
+
+        console.log("kkk",req)
+        const errors = await validationResult(req);
+
+        if (!errors.isEmpty()) {
+            // console.log(errors)
+            
+            return res.status(422).json({
+                status: false,
+                msg: errors?.errors[0]?.msg,
+                position: errors?.errors[0]?.param,
+            })
+        }
+        else{
+            authController.GetUserByWallet(req,res)
+        }
+    }  
+)
+
 router.post('/register', 
 
     validation.register,

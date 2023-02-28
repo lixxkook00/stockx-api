@@ -46,9 +46,9 @@ exports.Register = (req, res) => {
 }
 
 exports.GetUser = (req, res) => {
-    let sql = `SELECT * FROM users WHERE id = ${req.body.userId}`
+    let sql = `SELECT * FROM users WHERE id = ${(req.body.userId).toString()}`;
     db.query(sql, (err, response) => {
-        console.log("response",response.length)
+        // console.log("response",response.length)
         if (err) throw err
 
         if(response.length === 1){
@@ -61,6 +61,30 @@ exports.GetUser = (req, res) => {
             res.json({
                 "status":false,
                 "msg":"Dont have this shit item",
+                "data":[]
+            })
+        }
+    })
+}
+
+exports.GetUserByWallet = (req, res) => {
+    console.log("req.body.wallet",req);
+    let sql = `SELECT * FROM users WHERE wallet = '${req.body.wallet}'`
+    db.query(sql, (err, response) => {
+        console.log("sql",sql);
+        // console.log("response",response.length)
+        if (err) throw err
+
+        if(response.length === 1){
+            res.json({
+                "status":true,
+                "msg":"Get user info by wallet successfull",
+                "data":response
+            })
+        }else{
+            res.json({
+                "status":false,
+                "msg":"This is new wallet",
                 "data":[]
             })
         }

@@ -42,6 +42,12 @@ exports.getUserInfor = [
     check('userId', 'Invalid user id').isInt({ min: 1 }),
 ]
 
+
+// get infor user
+exports.getUserInforByWallet = [
+    // check('wallet', 'Wallet is not connected !!').notEmpty(),
+]
+
 // register
 exports.register = [
     check('userName')
