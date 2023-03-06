@@ -7,17 +7,26 @@ const db = require('../db')
 exports.Register = (req, res) => {
     console.log("validation success !!!")
 
-    let sql = ` INSERT INTO users ( username, full_name, password, email, phone) VALUES ( ? , ? , ? , ? , ? )`
+    let sql = ` INSERT INTO users ( username, wallet, full_name, password, email, phone) VALUES ( 
+        '${req.body.userName}' , 
+        '${req.body.wallet }' , 
+        '${req.body.fullName }' , 
+        '${req.body.password }' , 
+        '${req.body.email }' , 
+        '${req.body.phone }' 
+    )`
+    
+    console.log("sql",sql)
 
     db.query(
             sql , 
-            [
-                req.body.userName,
-                req.body.fullName ,
-                req.body.password ,
-                req.body.email ,
-                req.body.phone ,
-            ] , 
+            // [
+            //     req.body.userName,
+            //     req.body.fullName ,
+            //     req.body.password ,
+            //     req.body.email ,
+            //     req.body.phone ,
+            // ] , 
             (err, response) => 
         {
             if (err) {
@@ -68,10 +77,9 @@ exports.GetUser = (req, res) => {
 }
 
 exports.GetUserByWallet = (req, res) => {
-    console.log("req.body.wallet",req);
     let sql = `SELECT * FROM users WHERE wallet = '${req.body.wallet}'`
     db.query(sql, (err, response) => {
-        console.log("sql",sql);
+        // console.log("sql",sql);
         // console.log("response",response.length)
         if (err) throw err
 

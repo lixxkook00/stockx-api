@@ -35,8 +35,6 @@ router.post('/get-user-by-wallet',
     validation.getUserInforByWallet,
 
     async (req,res) => {
-
-        console.log("kkk",req)
         const errors = await validationResult(req);
 
         if (!errors.isEmpty()) {
